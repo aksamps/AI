@@ -130,6 +130,48 @@
         <mxCell id="cQes9UwB7qMvOyS3TpYK-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;Watch for data drift, performance decay, bias, latency issues, and retraining needs after release.&lt;/span&gt;" vertex="1">
           <mxGeometry height="60" width="680" x="240" y="740" as="geometry" />
         </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;customer churn project refers to rate at which customer discontinuous subscription or in software dev the frequency of changes made to tasks or code. Over all &lt;b&gt;churn &lt;/b&gt;should be minimum.&amp;nbsp;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="659" x="1" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-18" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;collect CRM and usage data&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="40" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-20" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-19" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;clean and join the tables&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="240" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-22" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;explore what behaviors correlate with churn&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="440" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-24" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-23" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;train a prediction model&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="670" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-26" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-25" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;evaluate whether it catches churners better than a simple baseline&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="170" x="660" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-28" edge="1" parent="1" source="cQes9UwB7qMvOyS3TpYK-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cQes9UwB7qMvOyS3TpYK-27" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;deploy it into a scoring pipeline&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="170" x="410" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="cQes9UwB7qMvOyS3TpYK-27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(39, 37, 30); font-family: pplxSerif, pplxSerif, ui-serif, Georgia, Cambria, &amp;quot;Hiragino Mincho ProN&amp;quot;, &amp;quot;Yu Mincho&amp;quot;, &amp;quot;Songti SC&amp;quot;, SimSun, &amp;quot;Songti TC&amp;quot;, PMingLiU, &amp;quot;Songti TC&amp;quot;, MingLiU_HKSCS, &amp;quot;Songti TC&amp;quot;, PMingLiU, AppleMyungjo, Batang, serif; font-size: 16px; text-align: start; background-color: color(srgb 0.980392 0.972549 0.960784);&quot;&gt;monitor whether accuracy drops when customer behavior changes&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="210" x="120" y="1020" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
