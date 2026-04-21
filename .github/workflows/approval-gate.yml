@@ -1,0 +1,91 @@
+name: Approval Gate (Manual PR Approval)
+
+on:
+  workflow_run:
+    workflows: ["Continuous Integration (CI)"]
+    types: [completed]
+    branches: [main, develop]
+
+jobs:
+  check-approval-status:
+    name: Check PR Approval Status
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Find PR from workflow run
+        id: find-pr
+        run: |
+          PR_NUMBER=$(gh run view ${{ github.event.workflow_run.id }} --json pullRequests -q '.pullRequests[0].number')
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check CI passed
+        if: github.event.workflow_run.conclusion != 'success'
+        run: |
+          echo "❌ CI checks failed. Fix errors before requesting approval."
+          exit 1
+      
+      - name: Get PR reviews
+        id: get-reviews
+        run: |
+          APPROVALS=$(gh pr view ${{ steps.find-pr.outputs.pr_number }} --json reviews -q '.reviews[].state' | grep -c 'APPROVED' || echo 0)
+          echo "approvals=$APPROVALS" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Comment - Awaiting Approval
+        if: steps.get-reviews.outputs.approvals < 1
+        run: |
+          gh pr comment ${{ steps.find-pr.outputs.pr_number }} --body "## ✅ CI Checks Passed
+
+          **Awaiting approval to merge.** 
+
+          ### Next Steps:
+          - Code review is required before merge
+          - A team member must approve this PR
+          - Once approved, the merge will be enabled
+
+          ### Review Checklist:
+          - [ ] Code quality and style
+          - [ ] Tests pass and coverage acceptable
+          - [ ] No security issues
+          - [ ] Documentation updated
+          - [ ] Follows contribution guidelines"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Comment - Approved, Ready to Merge
+        if: steps.get-reviews.outputs.approvals >= 1
+        run: |
+          gh pr comment ${{ steps.find-pr.outputs.pr_number }} --body "## ✅ Approved and Ready for Merge
+
+          This PR has received approval and all CI checks pass. It's ready to be merged!"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check merge eligibility
+        run: |
+          APPROVALS=${{ steps.get-reviews.outputs.approvals }}
+          if [ "$APPROVALS" -lt 1 ]; then
+            echo "⏳ Waiting for approval (Need 1, Have $APPROVALS)"
+            exit 1
+          else
+            echo "✅ Approval requirement met (Have $APPROVALS)"
+          fi
+
+  create-deployment:
+    name: Create Staging Deployment
+    runs-on: ubuntu-latest
+    needs: check-approval-status
+    if: success()
+    
+    steps:
+      - name: Create deployment
+        run: |
+          echo "Creating staging deployment environment for approved PR..."
+          # This would trigger deploy-staging.yml workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

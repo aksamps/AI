@@ -1,0 +1,111 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Commit SHA to deploy'
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_VERSION: ${{ github.sha || github.event.inputs.sha }}
+
+jobs:
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://library.example.com
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.sha || github.sha }}
+      
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION="prod-$(date +%Y%m%d-%H%M%S)-${{ env.IMAGE_VERSION }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download and tag Docker images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository }}/backend:${{ env.IMAGE_VERSION }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository }}/frontend:${{ env.IMAGE_VERSION }}
+          
+          docker tag ${{ env.REGISTRY }}/${{ github.repository }}/backend:${{ env.IMAGE_VERSION }} \
+                     ${{ env.REGISTRY }}/${{ github.repository }}/backend:${{ steps.version.outputs.version }}
+          docker tag ${{ env.REGISTRY }}/${{ github.repository }}/frontend:${{ env.IMAGE_VERSION }} \
+                     ${{ env.REGISTRY }}/${{ github.repository }}/frontend:${{ steps.version.outputs.version }}
+          
+          docker push ${{ env.REGISTRY }}/${{ github.repository }}/backend:${{ steps.version.outputs.version }}
+          docker push ${{ env.REGISTRY }}/${{ github.repository }}/frontend:${{ steps.version.outputs.version }}
+      
+      - name: Deploy to production server
+        run: |
+          echo "Deploying version ${{ steps.version.outputs.version }} to production..."
+          
+          # SSH and deploy (would need proper SSH key and server setup)
+          # In real scenario: ssh deploy@prod-server 'docker-compose -f docker-compose.prod.yml pull && docker-compose -f docker-compose.prod.yml up -d'
+      
+      - name: Health checks
+        run: |
+          echo "Running health checks on production..."
+          sleep 15  # Give services time to start
+          
+          # Check backend
+          if curl -f --max-time 10 https://library.example.com/api/health; then
+            echo "✅ Production backend healthy"
+          else
+            echo "❌ Production backend health check failed"
+            exit 1
+          fi
+      
+      - name: Database migrations
+        run: |
+          echo "Running database migrations..."
+          # Would connect to prod database and run migrations
+      
+      - name: Smoke tests
+        run: |
+          echo "Running production smoke tests..."
+          # Basic API tests
+          # UI navigation tests
+      
+      - name: Slack notification - Success
+        if: success()
+        run: |
+          echo "Sending Slack notification about successful production deployment..."
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: Slack notification - Failure & Rollback
+        if: failure()
+        run: |
+          echo "Production deployment failed! Initiating rollback..."
+          echo "Sending Slack notification..."
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          gh release create ${{ github.ref_name }} --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

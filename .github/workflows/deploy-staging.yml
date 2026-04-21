@@ -1,0 +1,85 @@
+name: Deploy to Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Commit SHA to deploy'
+        required: true
+  workflow_run:
+    workflows: ["Approval Gate (Manual PR Approval)"]
+    types: [completed]
+    branches: [develop]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_VERSION: ${{ github.sha }}
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.library.example.com
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download Docker images
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ github.repository }}/backend:${{ env.IMAGE_VERSION }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository }}/frontend:${{ env.IMAGE_VERSION }}
+      
+      - name: Deploy with Docker Compose
+        run: |
+          echo "Deploying to staging..."
+          docker-compose -f docker-compose.prod.yml up -d
+        env:
+          DOCKER_REGISTRY: ${{ env.REGISTRY }}
+          IMAGE_VERSION: ${{ env.IMAGE_VERSION }}
+      
+      - name: Run smoke tests
+        run: |
+          echo "Running smoke tests..."
+          sleep 10  # Wait for services to start
+          
+          # Test backend health
+          if curl -f http://localhost:5000/api/health; then
+            echo "✅ Backend health check passed"
+          else
+            echo "❌ Backend health check failed"
+            exit 1
+          fi
+          
+          # Test frontend
+          if curl -f http://localhost:3000; then
+            echo "✅ Frontend health check passed"
+          else
+            echo "❌ Frontend health check failed"
+            exit 1
+          fi
+      
+      - name: Comment on PR - Staging Deployed
+        if: github.event_name == 'workflow_run'
+        run: |
+          echo "Commenting on PR about staging deployment..."
+          # Get PR number and comment with staging URL
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Notify Slack
+        if: success()
+        run: |
+          echo "Sending Slack notification about staging deployment..."
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

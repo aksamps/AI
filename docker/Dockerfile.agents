@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir redis celery
+
+# Copy application and agents code
+COPY backend/ ./backend/
+COPY agents/ ./agents/
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV FLASK_APP=backend/app.py
+
+# Run agents service
+CMD ["python", "-m", "agents.dispatcher"]

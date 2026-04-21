@@ -1,0 +1,23 @@
+# GitHub Code Owners - Required reviewers
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for all files
+* @libraryteam
+
+# Backend
+/backend/ @backend-team
+
+# Frontend
+/frontend/ @frontend-team
+
+# Infrastructure & Deployment
+/docker/ @devops-team
+/.github/workflows/ @devops-team
+Dockerfile* @devops-team
+docker-compose* @devops-team
+
+# Agents
+/agents/ @ml-team
+
+# Database migrations
+/database/ @backend-team

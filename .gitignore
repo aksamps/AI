@@ -1,0 +1,47 @@
+node_modules/
+.env
+.env.local
+dist/
+build/
+*.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+/env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+postgres_data/
+
+# Frontend builds
+frontend/build/
+frontend/dist/
+frontend/.next/
+
+# Environment files (but keep .env.example)
+.env
+.env.*.local
+!.env.example

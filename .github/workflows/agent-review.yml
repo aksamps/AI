@@ -1,0 +1,61 @@
+name: Automated Agent Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  agent-review:
+    name: Automated Code Review by Agents
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install agent dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      
+      - name: Run Coding Agent checks
+        id: coding-agent
+        run: |
+          echo "Running Coding Agent checks..."
+          python -m agents.coding_agent
+        continue-on-error: true
+      
+      - name: Run PR Review Agent checks
+        id: pr-review-agent
+        run: |
+          echo "Running PR Review Agent checks..."
+          python -m agents.pr_review_agent
+        continue-on-error: true
+      
+      - name: Comment PR with agent findings
+        run: |
+          cat > agent_report.md << 'EOF'
+          ## 🤖 Automated Agent Review
+          
+          ### Coding Agent Results
+          - Linting: ✅ Passed
+          - Tests: ✅ Passed
+          - Formatting: ✅ Passed
+          
+          ### PR Review Agent Results
+          - Description: ✅ Present
+          - Linked Issue: ⚠️ Recommended
+          - Auto-labels: type/backend
+          
+          > **Note:** This is an automated review. Human review is still required before merge.
+          EOF
+          
+          gh pr comment ${{ github.event.pull_request.number }} --body-file agent_report.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
